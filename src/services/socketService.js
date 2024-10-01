@@ -37,9 +37,9 @@ const initializeSocket = (server) => {
         await prisma.chatMessage.create({
           data: {
             senderId: message.senderId,
-            sellerId: message.sellerId,
+            sellerId: message.sellerid,
             chatId: roomId,
-            text: message.text,
+            text: message.message,
             image: message.image,
           },
         });
