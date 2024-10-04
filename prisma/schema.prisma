@@ -24,7 +24,7 @@ model ChatMessage {
   senderId  String
   sellerId  String
   chatId    String
-  text      String
+  text   String
   image     String? // Optional field
   createdAt DateTime @default(now())
 }
