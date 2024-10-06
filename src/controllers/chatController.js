@@ -57,7 +57,7 @@ exports.deleteMessage = async (req, res) => {
     await prisma.chatMessage.delete({
       where: { id },
     });
-    res.status(204).end();
+    res.status(204).json({ message: "Deleted message "})
   } catch (error) {
     res.status(500).json({ message: 'Error deleting message', error });
   }

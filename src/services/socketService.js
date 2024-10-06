@@ -100,12 +100,13 @@ const initializeSocket = (server) => {
     console.log("Socket connected:", socket.id);
 
     socket.on("join room", async (roomId) => {
+      // console.log("Room joined:", roomId);
       socket.join(roomId);
       console.log(`User with socket ID ${socket.id} joined room: ${roomId}`);
       socket.emit("room joined", roomId);
 
       const previousMessages = await fetchPreviousMessages(roomId);
-      console.log(previousMessages);
+      
       socket.emit("previous messages", previousMessages);
     });
 
@@ -123,15 +124,15 @@ const initializeSocket = (server) => {
             image: message.image,
           },
         });
-        const messageWithTimestamp = {
-          ...storedMessage,
-          timestamp:storedMessage.createdAt,
-        };
+        // const messageWithTimestamp = {
+        //   ...storedMessage,
+        //   timestamp:storedMessage.createdAt,
+        // };
 
         console.log("Message stored in MySQL database.");
 
-        io.to(roomId).emit("chat message", messageWithTimestamp);
-        io.to(roomId).emit("new message notification", messageWithTimestamp);
+        io.to(roomId).emit("chat message", storedMessage);
+        io.to(roomId).emit("new message notification",storedMessage);
       } catch (error) {
         console.error("Error storing message in database:", error);
       }
